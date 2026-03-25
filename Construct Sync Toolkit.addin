@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Plugins>
+
+  <!--
+    Construct Sync Toolkit.addin — Manifest de plugins do Navisworks
+    ────────────────────────────────────────────────────────────────
+    Convenção:
+      <FileName>   → nome do assembly sem extensão (deve coincidir com AssemblyName no .csproj = "TestePlugin")
+      <Id>         → deve corresponder ao 1º parâmetro de [Plugin("id", ...)] no C#
+      <ClassName>  → idem — Navisworks usa este valor para localizar a classe decorada com [Plugin]
+
+    Alinhamento com a ribbon XAML:
+      Ribbon Button Id="TestePlugin.ReadAttributes"  → [Plugin("TestePlugin.ReadAttributes", ...)]
+      Ribbon Button Id="TestePlugin.WriteAttributes" → [Plugin("TestePlugin.WriteAttributes", ...)]
+      Ribbon Button Id="TestePlugin.Colorizer"       → [Plugin("TestePlugin.Colorizer", ...)]
+  -->
+
+  <!-- Sobre: abre AboutWindow -->
+  <Plugin>
+    <Id>TestePlugin.About</Id>
+    <FileName>TestePlugin</FileName>
+    <ClassName>TestePlugin.AboutPlugin</ClassName>
+    <DisplayName>Sobre esta aplicativo</DisplayName>
+    <ToolTip>Sobre o Construct Sync Toolkit — recursos e funcionalidades</ToolTip>
+  </Plugin>
+
+  <!-- Ler Atributos: abre ReadAttributesWindow -->
+  <Plugin>
+    <Id>TestePlugin.ReadAttributes</Id>
+    <FileName>TestePlugin</FileName>
+    <ClassName>TestePlugin.ReadAttributes</ClassName>
+    <DisplayName>Ler Atributos</DisplayName>
+    <ToolTip>Lista categorias e propriedades dos elementos selecionados</ToolTip>
+  </Plugin>
+
+  <!-- Gravar Atributos: abre WriteAttributesWindow -->
+  <Plugin>
+    <Id>TestePlugin.WriteAttributes</Id>
+    <FileName>TestePlugin</FileName>
+    <ClassName>TestePlugin.WriteAttributes</ClassName>
+    <DisplayName>Gravar Atributos</DisplayName>
+    <ToolTip>Cria ou atualiza atributos personalizados nos elementos selecionados</ToolTip>
+  </Plugin>
+
+  <!-- Colorizer: abre ColorizerWindow -->
+  <Plugin>
+    <Id>TestePlugin.Colorizer</Id>
+    <FileName>TestePlugin</FileName>
+    <ClassName>TestePlugin.Colorizer</ClassName>
+    <DisplayName>Colorizer</DisplayName>
+    <ToolTip>Aplica cores a elementos por Selection Sets ou Search Sets</ToolTip>
+  </Plugin>
+
+</Plugins>

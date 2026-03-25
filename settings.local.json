@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \":*)",
+      "Bash(grep -E \"\\\\.\\(xaml|cs|dll|csproj|addin\\)$\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"c:\\\\Users\\\\JathuielCorrea\\\\Desktop\\\\MakeBackup.ps1\")",
+      "Bash(powershell -Command \"Get-Item ''c:\\\\Users\\\\JathuielCorrea\\\\Desktop\\\\00.*'' | Select-Object FullName\")",
+      "Bash(powershell -Command \"cmd /c ''for %I in \\(\"\"c:\\\\Users\\\\JathuielCorrea\\\\Desktop\\\\00. Solu*\"\"\\) do echo %~sI''\")",
+      "Bash(powershell -Command \"\\(New-Object -ComObject Scripting.FileSystemObject\\).GetFolder\\(''c:\\\\Users\\\\JathuielCorrea\\\\Desktop\\\\00. Solu'' + [char]231 + ''es''\\).ShortPath\")"
+    ]
+  }
+}

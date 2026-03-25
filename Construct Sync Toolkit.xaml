@@ -1,0 +1,38 @@
+<PluginRibbon xmlns="http://schemas.autodesk.com/navisworks/2009/xaml/commands"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             TabName="Construct Sync Toolkit">
+
+  <RibbonTab>
+    <RibbonPanel PanelName="Sobre">
+      <Button DisplayName="Sobre esta aplicativo"
+              Id="TestePlugin.About"
+              ToolTip="Sobre o Construct Sync Toolkit — recursos e funcionalidades"
+              IsLarge="True"
+              Icon="Resources/about_icon.ico"
+              LargeIcon="Resources/about_icon.ico" />
+    </RibbonPanel>
+    <RibbonPanel PanelName="Atributos">
+      <Button DisplayName="Ler Atributos"
+              Id="TestePlugin.ReadAttributes"
+              ToolTip="Lista categorias e propriedades dos elementos selecionados"
+              IsLarge="True"
+              Icon="Resources/ler_atributo_icon.ico"
+              LargeIcon="Resources/ler_atributo_icon.ico" />
+      <Button DisplayName="Gravar Atributos"
+              Id="TestePlugin.WriteAttributes"
+              ToolTip="Cria ou atualiza atributos personalizados nos elementos selecionados"
+              IsLarge="True"
+              Icon="Resources/atributos_icon.ico"
+              LargeIcon="Resources/atributos_icon.ico" />
+    </RibbonPanel>
+    <RibbonPanel PanelName="Visualização">
+      <Button DisplayName="Colorizer"
+              Id="TestePlugin.Colorizer"
+              ToolTip="Aplica cores a elementos por Selection Sets ou Search Sets"
+              IsLarge="True"
+              Icon="Resources/Color_icon.ico"
+              LargeIcon="Resources/Color_icon.ico" />
+    </RibbonPanel>
+  </RibbonTab>
+
+</PluginRibbon>

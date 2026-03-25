@@ -1,0 +1,5 @@
+obj/
+.vs/
+null
+Build/build_log.txt
+*.user
