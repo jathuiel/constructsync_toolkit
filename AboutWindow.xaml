@@ -1,0 +1,221 @@
+<!--
+    AboutWindow.xaml — Construct Sync Toolkit
+    Janela "Sobre" com descrição das funcionalidades do plugin.
+
+    Estilos e paleta: Themes/DesignSystem.xaml (fonte única de verdade)
+
+    Layout (Grid de 3 linhas):
+      Row 0 — Cabeçalho: título + descrição geral
+      Row 1 — ScrollViewer: três seções (Leitura, Gravação, Colorizer)
+      Row 2 — Rodapé: botão Fechar
+-->
+<Window x:Class="TestePlugin.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sobre — Construct Sync Toolkit"
+        Width="560" Height="640"
+        MinWidth="440" MinHeight="480"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True"
+        Background="#292929">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TestePlugin;component/Themes/DesignSystem.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Bullet reutilizado nas três seções -->
+            <Style x:Key="AboutBullet" TargetType="TextBlock">
+                <Setter Property="Foreground"    Value="{StaticResource Subtext0}"/>
+                <Setter Property="FontSize"      Value="11"/>
+                <Setter Property="Margin"        Value="0,1,0,1"/>
+                <Setter Property="TextWrapping"  Value="Wrap"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- Cabeçalho -->
+            <RowDefinition Height="*"/>     <!-- Seções de conteúdo -->
+            <RowDefinition Height="Auto"/>  <!-- Botão Fechar -->
+        </Grid.RowDefinitions>
+
+        <!-- ── CABEÇALHO ─────────────────────────────────────────────── -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,16">
+            <TextBlock Text="Construct Sync Toolkit"
+                       Foreground="{StaticResource Blue}"
+                       FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="Plugin para Autodesk Navisworks"
+                       Foreground="{StaticResource Subtext0}"
+                       FontSize="11" Margin="0,2,0,10"/>
+
+            <Border Background="{StaticResource Mantle}"
+                    BorderBrush="{StaticResource Surface1}"
+                    BorderThickness="1" CornerRadius="6"
+                    Padding="14,10">
+                <TextBlock TextWrapping="Wrap"
+                           Foreground="{StaticResource Text}"
+                           FontSize="12" LineHeight="18">
+                    O Construct Sync Toolkit é um plugin desenvolvido sobre a API do
+                    Navisworks que permite inspecionar, modificar e visualizar atributos
+                    de elementos do modelo de forma rápida e estruturada. Ele atua como
+                    uma camada operacional entre o modelo e o usuário, facilitando
+                    análise, padronização e tomada de decisão.
+                </TextBlock>
+            </Border>
+        </StackPanel>
+
+        <!-- ── SEÇÕES ─────────────────────────────────────────────────── -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Margin="0,0,0,12">
+            <StackPanel>
+
+                <!-- ── SEÇÃO: LEITURA DE ATRIBUTOS ──────────────────── -->
+                <Border Background="{StaticResource Mantle}"
+                        BorderBrush="{StaticResource Surface1}"
+                        BorderThickness="1" CornerRadius="6"
+                        Padding="14,12" Margin="0,0,0,8">
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🔍" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="Leitura de Atributos"
+                                       Foreground="{StaticResource Blue}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Permite explorar todas as propriedades dos elementos selecionados no modelo."
+                                   Foreground="{StaticResource Subtext0}"
+                                   FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Principais recursos:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,0,0,4"/>
+                        <StackPanel Margin="10,0,0,6">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Listagem completa de categorias e propriedades"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Campo de busca para filtragem dinâmica"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Exibição de quantidade de propriedades por categoria"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Exportação rápida via botão Copiar (formato tab-separated)"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Aplicação prática:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,4,0,4"/>
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Auditoria de modelo"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Extração de dados para Excel / Power BI"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Verificação de consistência de propriedades"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- ── SEÇÃO: GRAVAÇÃO DE ATRIBUTOS ─────────────────── -->
+                <Border Background="{StaticResource Mantle}"
+                        BorderBrush="{StaticResource Surface1}"
+                        BorderThickness="1" CornerRadius="6"
+                        Padding="14,12" Margin="0,0,0,8">
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="✏️" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="Gravação de Atributos"
+                                       Foreground="{StaticResource Green}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Permite inserir ou atualizar propriedades diretamente nos elementos."
+                                   Foreground="{StaticResource Subtext0}"
+                                   FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Principais recursos:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,0,0,4"/>
+                        <StackPanel Margin="10,0,0,6">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Criação ou seleção de categorias personalizadas"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Inserção de múltiplos atributos simultaneamente"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Tipos suportados: string, int, double, boolean"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Uso da COM API (InwOaPropertyOverrideCat) para escrita"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Atualização automática de atributos existentes"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Aplicação prática:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,4,0,4"/>
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Padronização de dados"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Enriquecimento do modelo"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Integração com processos de AWP, planejamento ou BI"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- ── SEÇÃO: COLORIZER ──────────────────────────────── -->
+                <Border Background="{StaticResource Mantle}"
+                        BorderBrush="{StaticResource Surface1}"
+                        BorderThickness="1" CornerRadius="6"
+                        Padding="14,12">
+                    <StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="🎨" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock Text="Colorizer"
+                                       Foreground="{StaticResource Sapphire}"
+                                       FontSize="13" FontWeight="SemiBold"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Ferramenta de visualização para destacar elementos com base em conjuntos."
+                                   Foreground="{StaticResource Subtext0}"
+                                   FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Principais recursos:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,0,0,4"/>
+                        <StackPanel Margin="10,0,0,6">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Aplicação de cores a partir de Selection Sets, Search Sets ou todo o modelo"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Cores aleatórias, paleta predefinida (20 cores) ou cor personalizada"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Duplo clique seleciona os elementos do set no modelo"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Botão Restaurar Cores remove todos os overrides"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Aplicação prática:"
+                                   Foreground="{StaticResource Text}"
+                                   FontSize="11" FontWeight="SemiBold"
+                                   Margin="0,4,0,4"/>
+                        <StackPanel Margin="10,0,0,0">
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Análise visual rápida"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Revisão de escopo (sets)"/>
+                            <TextBlock Style="{StaticResource AboutBullet}" Text="• Debug de classificação e agrupamentos"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ── RODAPÉ ─────────────────────────────────────────────────── -->
+        <Button Grid.Row="2"
+                Content="Fechar"
+                Style="{StaticResource GhostButton}"
+                HorizontalAlignment="Right"
+                Width="100"
+                Click="BtnClose_Click"/>
+    </Grid>
+</Window>

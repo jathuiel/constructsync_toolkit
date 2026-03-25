@@ -1,0 +1,205 @@
+<!--
+    WriteAttributesWindow.xaml
+    Janela para criar/sobrescrever atributos personalizados em elementos BIM do Navisworks.
+    Layout: título | campo de categoria | grade de atributos | status | botão gravar.
+
+    Estilos e paleta: Themes/DesignSystem.xaml (fonte única de verdade)
+-->
+<Window x:Class="TestePlugin.WriteAttributesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gravar Atributos — Construct Sync"
+        Width="620" Height="480"
+        MinWidth="480" MinHeight="360"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="True"
+        Background="#292929">
+
+    <!-- Carrega o design system — remove duplicação de estilos entre janelas -->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TestePlugin;component/Themes/DesignSystem.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!-- ═══════════════════════════════════════════════════
+         LAYOUT RAIZ
+         5 linhas: título | categoria | grade (flex) | status | botão gravar
+         ═══════════════════════════════════════════════════ -->
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- Título -->
+            <RowDefinition Height="Auto"/>   <!-- Campo de categoria -->
+            <RowDefinition Height="*"/>      <!-- Grade de atributos -->
+            <RowDefinition Height="Auto"/>   <!-- Status -->
+            <RowDefinition Height="Auto"/>   <!-- Botão gravar -->
+        </Grid.RowDefinitions>
+
+        <!-- ── TÍTULO ──────────────────────────────────── -->
+        <TextBlock Grid.Row="0"
+                   Text="Gravar Atributos Personalizados"
+                   Foreground="{StaticResource Text}" FontSize="15" FontWeight="SemiBold"
+                   Margin="0,0,0,12"/>
+
+        <!-- ── CAMPO DE CATEGORIA ──────────────────────── -->
+        <!-- Define a categoria (grupo) onde os atributos serão gravados.
+             Se a categoria já existir no elemento, será atualizada. -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,10">
+            <TextBlock Text="Nome da Categoria:" Style="{StaticResource Label}"/>
+            <TextBox x:Name="CategoryNameBox"
+                     Style="{StaticResource DarkTextBox}"
+                     Tag="Ex: Construct Sync"
+                     Text="Construct Sync"
+                     GotFocus="EditingTextBox_GotFocus"/>
+        </StackPanel>
+
+        <!-- ── GRADE DE ATRIBUTOS ─────────────────────── -->
+        <!-- Cada linha: Nome do atributo | Valor | Tipo (ComboBox) | ✕ remover -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>  <!-- Rótulo -->
+                <RowDefinition Height="*"/>     <!-- DataGrid -->
+                <RowDefinition Height="Auto"/>  <!-- Botão adicionar linha -->
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="Atributos a gravar:"
+                       Style="{StaticResource Label}"/>
+
+            <DataGrid x:Name="AttributesGrid" Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="False"
+                      SelectionUnit="CellOrRowHeader"
+                      BeginningEdit="AttributesGrid_BeginningEdit"
+                      PreparingCellForEdit="AttributesGrid_PreparingCellForEdit"
+                      Background="{StaticResource Mantle}"
+                      Foreground="{StaticResource Text}"
+                      BorderBrush="{StaticResource Surface1}"
+                      BorderThickness="1"
+                      RowBackground="{StaticResource Mantle}"
+                      AlternatingRowBackground="{StaticResource Base}"
+                      GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="{StaticResource Surface0}"
+                      HeadersVisibility="Column"
+                      ColumnHeaderHeight="28"
+                      ColumnHeaderStyle="{StaticResource DarkDataGridHeader}"
+                      CellStyle="{StaticResource DarkDataGridCell}">
+
+                <DataGrid.Columns>
+
+                    <!-- Coluna: nome do atributo — TextBox explícito para garantir foco do teclado no Navisworks -->
+                    <DataGridTemplateColumn Header="Nome do Atributo" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Foreground="{StaticResource Text}" Padding="6,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                         Background="{StaticResource InputBg}"
+                                         Foreground="{StaticResource Text}"
+                                         BorderThickness="0" Padding="4,2"
+                                         FocusVisualStyle="{x:Null}"
+                                         GotFocus="EditingTextBox_GotFocus"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Coluna: valor do atributo — TextBox explícito para garantir foco do teclado no Navisworks -->
+                    <DataGridTemplateColumn Header="Valor" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" Foreground="{StaticResource Text}" Padding="6,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                         Background="{StaticResource InputBg}"
+                                         Foreground="{StaticResource Text}"
+                                         BorderThickness="0" Padding="4,2"
+                                         FocusVisualStyle="{x:Null}"
+                                         GotFocus="EditingTextBox_GotFocus"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Coluna: tipo de dado — ComboBox ao editar.
+                         Os tipos aqui devem corresponder aos casos em ConvertValue() no code-behind. -->
+                    <DataGridTemplateColumn Header="Tipo" Width="110">
+                        <!-- Exibição: texto simples -->
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Type}"
+                                           Foreground="{StaticResource Text}"
+                                           Padding="6,2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <!-- Edição: ComboBox com os tipos suportados.
+                             SelectedValue + SelectedValuePath="Content" garante que
+                             AttributeEntry.Type receba a string "int"/"double"/etc.,
+                             e não o objeto ComboBoxItem (que quebraria o ConvertValue). -->
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox SelectedValue="{Binding Type, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedValuePath="Content"
+                                          Background="{StaticResource InputBg}"
+                                          Foreground="{StaticResource Text}"
+                                          BorderBrush="{StaticResource Surface1}">
+                                    <ComboBoxItem>string</ComboBoxItem>
+                                    <ComboBoxItem>int</ComboBoxItem>
+                                    <ComboBoxItem>double</ComboBoxItem>
+                                    <ComboBoxItem>boolean</ComboBoxItem>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Coluna: botão ✕ para remover a linha.
+                         Tag passa o próprio item para BtnRemoveRow_Click. -->
+                    <DataGridTemplateColumn Header="" Width="36">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="✕"
+                                        Style="{StaticResource RedButton}"
+                                        Width="26" Height="22"
+                                        FontSize="10"
+                                        Padding="0"
+                                        Tag="{Binding}"
+                                        Click="BtnRemoveRow_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Adiciona nova linha vazia à grade -->
+            <Button Grid.Row="2"
+                    Content="+ Adicionar Linha"
+                    Style="{StaticResource AccentButton}"
+                    HorizontalAlignment="Left"
+                    Margin="0,6,0,0"
+                    Click="BtnAddRow_Click"/>
+        </Grid>
+
+        <!-- ── STATUS ──────────────────────────────────── -->
+        <!-- Atualizado por UpdateStatus() com a contagem de elementos que serão afetados -->
+        <TextBlock x:Name="StatusText" Grid.Row="3"
+                   Foreground="{StaticResource Overlay1}" FontSize="11"
+                   Margin="0,8,0,4"/>
+
+        <!-- ── BOTÃO GRAVAR ────────────────────────────── -->
+        <!-- Conteúdo dinâmico: "Gravar em N Elemento(s)" — atualizado por UpdateStatus() -->
+        <Button x:Name="BtnWrite" Grid.Row="4"
+                Content="Gravar nos Elementos Selecionados"
+                Style="{StaticResource GreenButton}"
+                HorizontalAlignment="Stretch"
+                Click="BtnWrite_Click"/>
+    </Grid>
+</Window>
