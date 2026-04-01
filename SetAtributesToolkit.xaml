@@ -19,6 +19,14 @@
               Icon="Resources/ler_atributo_icon.png"
               LargeIcon="Resources/ler_atributo_icon.png" />
     </RibbonPanel>
+    <RibbonPanel PanelName="Lab">
+      <Button DisplayName="Native Attr Lab"
+              Id="SetAtributesToolkit.NativeAttrLab"
+              ToolTip="Testa a criação de atributos custom com o mesmo nome de categorias nativas"
+              IsLarge="True"
+              Icon="Resources/ler_atributo_icon.png"
+              LargeIcon="Resources/ler_atributo_icon.png" />
+    </RibbonPanel>
   </RibbonTab>
 
 </PluginRibbon>
