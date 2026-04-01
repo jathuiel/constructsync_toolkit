@@ -1,72 +1,57 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!--
-    ═══════════════════════════════════════════════════════════════════════
-     Themes/DesignSystem.xaml — Construct Sync Toolkit
-     Fonte única de verdade para estilos, paleta e componentes visuais.
+    <!-- ── BACKGROUNDS ─────────────────────────── -->
+    <!-- Base: fundo principal de janelas -->
+    <SolidColorBrush x:Key="Base"     Color="#FFFFFF"/>
+    <!-- Mantle: fundo de listas e grades -->
+    <SolidColorBrush x:Key="Mantle"   Color="#F5F5F5"/>
+    <!-- Surface0: hover / cabeçalho de grade -->
+    <SolidColorBrush x:Key="Surface0" Color="#E8E8E8"/>
+    <!-- Surface1: bordas, botão ghost, seleção -->
+    <SolidColorBrush x:Key="Surface1" Color="#D1D1D1"/>
+    <!-- InputBg: fundo de campos de texto -->
+    <SolidColorBrush x:Key="InputBg"  Color="#FAFAFA"/>
 
-     Tema: Catppuccin Mocha (dark)
+    <!-- ── TEXT ────────────────────────────────── -->
+    <!-- Texto principal -->
+    <SolidColorBrush x:Key="Text"     Color="#2E2E2E"/>
+    <!-- Rótulos / labels -->
+    <SolidColorBrush x:Key="Subtext0" Color="#5A5A5A"/>
+    <!-- Textos secundários / status -->
+    <SolidColorBrush x:Key="Overlay1" Color="#7A7A7A"/>
+    <!-- Texto desabilitado -->
+    <SolidColorBrush x:Key="TextDisabled" Color="#B0B0B0"/>
 
-     ┌────────────────────────────────────────────────────────────────┐
-     │  Token      Hex       Papel                                    │
-     │  Base       #292929   Fundo principal de janelas               │
-     │  Mantle     #181825   Fundo de listas e grades                 │
-     │  Surface0   #313244   Hover / cabeçalho de grade               │
-     │  Surface1   #45475A   Bordas, botão ghost, seleção             │
-     │  Overlay1   #6C7086   Textos secundários / status              │
-     │  Subtext0   #A6ADC8   Rótulos / labels                        │
-     │  Text       #CDD6F4   Texto principal                          │
-     │  Blue       #FC6A0A   Accent — ação primária                   │
-     │  Sapphire   #FC6A0A   Hover accent                             │
-     │  Sky        #E74504   Pressed accent                           │
-     │  Green      #E74504   Confirmação (gravar)                     │
-     │  Red        #FC6A0A   Destrutivo (restaurar / remover)         │
-     │  InputBg    #2D2D3F   Fundo de campos de texto                 │
-     └────────────────────────────────────────────────────────────────┘
+    <!-- ── ACCENT ──────────────────────────────── -->
+    <!-- Ação primária -->
+    <SolidColorBrush x:Key="Accent"        Color="#FC6A0A"/>
+    <!-- Hover em ação primária -->
+    <SolidColorBrush x:Key="AccentHover"   Color="#FF7A1F"/>
+    <!-- Pressed em ação primária -->
+    <SolidColorBrush x:Key="AccentPressed" Color="#E74504"/>
 
-     Componentes exportados:
-       DarkTextBox        — TextBox com placeholder e foco colorido
-       AccentButton       — botão primário (azul)
-       GhostButton        — botão secundário (cinza), herda AccentButton
-       NavButton          — botão compacto de navegação, herda GhostButton
-       GreenButton        — confirmação, herda AccentButton
-       RedButton          — destrutivo, herda AccentButton
-       Label              — TextBlock de rótulo acima de inputs
-       RadioStyle         — RadioButton de fonte de sets
-       DarkListViewItem   — ListViewItem com hover e seleção
-       DarkDataGridHeader — cabeçalho de coluna DataGrid
-       DarkDataGridCell   — célula DataGrid com seleção
-    ═══════════════════════════════════════════════════════════════════════
-    -->
+    <!-- ── SEMANTIC ────────────────────────────── -->
+    <!-- Confirmação / sucesso -->
+    <SolidColorBrush x:Key="Success"   Color="#2E7D32"/>
+    <!-- Ações destrutivas / erro -->
+    <SolidColorBrush x:Key="Destructive" Color="#D32F2F"/>
+    <!-- Avisos -->
+    <SolidColorBrush x:Key="Warning"   Color="#ED6C02"/>
+    <!-- Informações -->
+    <SolidColorBrush x:Key="Info"      Color="#0288D1"/>
 
-    <!-- ── PALETA ─────────────────────────────────────────────────────── -->
-    <SolidColorBrush x:Key="Base"     Color="#292929"/>
-    <SolidColorBrush x:Key="Mantle"   Color="#292929"/>
-    <SolidColorBrush x:Key="Surface0" Color="#313244"/>
-    <SolidColorBrush x:Key="Surface1" Color="#45475A"/>
-    <SolidColorBrush x:Key="Overlay1" Color="#6C7086"/>
-    <SolidColorBrush x:Key="Subtext0" Color="#A6ADC8"/>
-    <SolidColorBrush x:Key="Text"     Color="#CDD6F4"/>
-    <SolidColorBrush x:Key="Blue"     Color="#FC6A0A"/>
-    <SolidColorBrush x:Key="Sapphire" Color="#FC6A0A"/>
-    <SolidColorBrush x:Key="Sky"      Color="#E74504"/>
-    <SolidColorBrush x:Key="Green"    Color="#E74504"/>
-    <SolidColorBrush x:Key="Red"      Color="#FC6A0A"/>
-    <SolidColorBrush x:Key="InputBg"  Color="#2D2D3F"/>
+    <!-- ── BORDERS ─────────────────────────────── -->
+    <!-- Bordas padrão -->
+    <SolidColorBrush x:Key="Border"      Color="#D1D1D1"/>
+    <!-- Borda em foco -->
+    <SolidColorBrush x:Key="BorderFocus" Color="#FC6A0A"/>
 
-    <!-- ── CAMPO DE TEXTO ─────────────────────────────────────────────── -->
-    <!--
-        ControlTemplate próprio para suportar:
-          • CornerRadius nativo (Border em vez de TextBox padrão)
-          • Placeholder via propriedade Tag (visível quando Text == "")
-          • Borda azul (Blue) ao receber foco de teclado
-          • Opacidade reduzida quando desabilitado
-    -->
+    <!-- ── CAMPO DE TEXTO ──────────────────────── -->
     <Style x:Key="DarkTextBox" TargetType="TextBox">
         <Setter Property="Background"      Value="{StaticResource InputBg}"/>
         <Setter Property="Foreground"      Value="{StaticResource Text}"/>
-        <Setter Property="BorderBrush"     Value="{StaticResource Surface1}"/>
+        <Setter Property="BorderBrush"     Value="{StaticResource Border}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding"         Value="8,5"/>
         <Setter Property="CaretBrush"      Value="{StaticResource Text}"/>
@@ -81,7 +66,6 @@
                             CornerRadius="4"
                             SnapsToDevicePixels="True">
                         <Grid Margin="{TemplateBinding Padding}">
-                            <!-- Placeholder: exibido apenas quando o campo está vazio -->
                             <TextBlock Text="{TemplateBinding Tag}"
                                        Foreground="{StaticResource Overlay1}"
                                        IsHitTestVisible="False"
@@ -98,7 +82,6 @@
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
-                            <!-- PART_ContentHost: nome reservado pelo WPF para o host de texto -->
                             <ScrollViewer x:Name="PART_ContentHost"
                                           Focusable="False"
                                           HorizontalScrollBarVisibility="Hidden"
@@ -108,7 +91,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="border" Property="BorderBrush"
-                                    Value="{StaticResource Blue}"/>
+                                    Value="{StaticResource BorderFocus}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="border" Property="Opacity" Value="0.5"/>
@@ -119,17 +102,13 @@
         </Setter>
     </Style>
 
-    <!-- ── BOTÕES ─────────────────────────────────────────────────────── -->
+    <!-- ── BOTÕES ──────────────────────────────── -->
 
-    <!--
-        AccentButton — botão primário (azul).
-        Template com Border arredondada (CornerRadius="4") e TemplateBinding Padding,
-        permitindo override por instância sem precisar de estilo derivado.
-        Hover  → Sapphire  |  Pressed → Sky
-    -->
+    <!-- AccentButton — botão primário (laranja) -->
+    <!-- Hover → AccentHover | Pressed → AccentPressed -->
     <Style x:Key="AccentButton" TargetType="Button">
-        <Setter Property="Background"      Value="{StaticResource Blue}"/>
-        <Setter Property="Foreground"      Value="{StaticResource Base}"/>
+        <Setter Property="Background"      Value="{StaticResource Accent}"/>
+        <Setter Property="Foreground"      Value="White"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding"         Value="12,6"/>
         <Setter Property="FontWeight"      Value="SemiBold"/>
@@ -145,10 +124,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Sapphire}"/>
+                            <Setter Property="Background" Value="{StaticResource AccentHover}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource Sky}"/>
+                            <Setter Property="Background" Value="{StaticResource AccentPressed}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -156,14 +135,14 @@
         </Setter>
     </Style>
 
-    <!-- GhostButton — ação secundária (cinza), herda template do AccentButton -->
+    <!-- GhostButton — botão secundário (cinza) -->
     <Style x:Key="GhostButton" TargetType="Button"
            BasedOn="{StaticResource AccentButton}">
         <Setter Property="Background" Value="{StaticResource Surface1}"/>
         <Setter Property="Foreground" Value="{StaticResource Text}"/>
     </Style>
 
-    <!-- NavButton — botões compactos da barra de navegação (◄◄ ◄ ► ►►) -->
+    <!-- NavButton — botões compactos de navegação -->
     <Style x:Key="NavButton" TargetType="Button"
            BasedOn="{StaticResource GhostButton}">
         <Setter Property="Padding"  Value="8,3"/>
@@ -171,41 +150,34 @@
         <Setter Property="MinWidth" Value="28"/>
     </Style>
 
-    <!-- GreenButton — ação de confirmação (gravar), herda AccentButton -->
+    <!-- GreenButton — ação de confirmação -->
     <Style x:Key="GreenButton" TargetType="Button"
            BasedOn="{StaticResource AccentButton}">
-        <Setter Property="Background" Value="{StaticResource Green}"/>
+        <Setter Property="Background" Value="{StaticResource Success}"/>
     </Style>
 
-    <!-- RedButton — ação destrutiva (restaurar / remover), herda AccentButton -->
+    <!-- RedButton — ação destrutiva -->
     <Style x:Key="RedButton" TargetType="Button"
            BasedOn="{StaticResource AccentButton}">
-        <Setter Property="Background" Value="{StaticResource Red}"/>
+        <Setter Property="Background" Value="{StaticResource Destructive}"/>
     </Style>
 
-    <!-- ── RÓTULOS E RADIO BUTTONS ────────────────────────────────────── -->
+    <!-- ── RÓTULOS E RADIO ─────────────────────── -->
 
-    <!-- Label — TextBlock de rótulo acima de campos de entrada -->
     <Style x:Key="Label" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource Subtext0}"/>
         <Setter Property="FontSize"   Value="12"/>
         <Setter Property="Margin"     Value="0,0,0,4"/>
     </Style>
 
-    <!-- RadioStyle — radio buttons de seleção de fonte de sets -->
     <Style x:Key="RadioStyle" TargetType="RadioButton">
         <Setter Property="Foreground" Value="{StaticResource Text}"/>
         <Setter Property="Margin"     Value="0,0,16,0"/>
         <Setter Property="Cursor"     Value="Hand"/>
     </Style>
 
-    <!-- ── LISTA (ListView) ───────────────────────────────────────────── -->
+    <!-- ── LISTA (ListView) ────────────────────── -->
 
-    <!--
-        DarkListViewItem — estilo padrão para linhas de ListView.
-        Hover   → Surface0 (fundo escuro médio)
-        Selected → Surface1 (fundo) + Blue (texto)
-    -->
     <Style x:Key="DarkListViewItem" TargetType="ListViewItem">
         <Setter Property="Padding"         Value="8,5"/>
         <Setter Property="Background"      Value="Transparent"/>
@@ -218,24 +190,22 @@
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{StaticResource Surface1}"/>
-                <Setter Property="Foreground" Value="{StaticResource Blue}"/>
+                <Setter Property="Foreground" Value="{StaticResource Accent}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!-- ── GRADE (DataGrid) ───────────────────────────────────────────── -->
+    <!-- ── GRADE (DataGrid) ────────────────────── -->
 
-    <!-- DarkDataGridHeader — cabeçalho de coluna com accent azul -->
     <Style x:Key="DarkDataGridHeader" TargetType="DataGridColumnHeader">
         <Setter Property="Background"      Value="{StaticResource Surface0}"/>
-        <Setter Property="Foreground"      Value="{StaticResource Blue}"/>
+        <Setter Property="Foreground"      Value="{StaticResource Accent}"/>
         <Setter Property="FontWeight"      Value="SemiBold"/>
         <Setter Property="Padding"         Value="8,0"/>
         <Setter Property="BorderBrush"     Value="{StaticResource Surface1}"/>
         <Setter Property="BorderThickness" Value="0,0,1,1"/>
     </Style>
 
-    <!-- DarkDataGridCell — célula com destaque Surface0 na seleção -->
     <Style x:Key="DarkDataGridCell" TargetType="DataGridCell">
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding"         Value="6,3"/>

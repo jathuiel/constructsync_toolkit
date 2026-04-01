@@ -1,15 +1,17 @@
 [Setup]
-AppName=TestePlugin Navis
+AppName=Set Atributes Toolkit
 AppVersion=1.0
-OutputBaseFilename=TestePlugin_Installer
+OutputBaseFilename=SetAtributesToolkit_Installer
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64
 
 [Files]
-Source: "TestePlugin.dll"; DestDir: "{code:GetSelectedDir}"; Flags: ignoreversion
-Source: "TestePlugin.addin"; DestDir: "{code:GetSelectedDir}"; Flags: ignoreversion
+Source: "SetAtributesToolkit.dll"; DestDir: "{code:GetSelectedDir}"; Flags: ignoreversion
+Source: "SetAtributesToolkit.addin"; DestDir: "{code:GetSelectedDir}"; Flags: ignoreversion
+Source: "SetAtributesToolkit.xaml"; DestDir: "{code:GetSelectedDir}"; Flags: ignoreversion
+Source: "Resources\*.png"; DestDir: "{code:GetSelectedDir}\Resources"; Flags: ignoreversion
 
 [Code]
 var
@@ -44,7 +46,7 @@ begin
           if (Pos('Manage', FindRec.Name) > 0) or (Pos('Simulate', FindRec.Name) > 0) then
           begin
             SetArrayLength(NavisPaths, Index + 1);
-            NavisPaths[Index] := BasePath + FindRec.Name + '\Plugins\TestePlugin';
+            NavisPaths[Index] := BasePath + FindRec.Name + '\Plugins\SetAtributesToolkit';
 
             NavisPage.Add(FindRec.Name);
             Index := Index + 1;
@@ -70,5 +72,5 @@ begin
     end;
   end;
 
-  Result := ExpandConstant('{commonappdata}\Autodesk\Navisworks Manage 2023\Plugins\TestePlugin');
+  Result := ExpandConstant('{commonappdata}\Autodesk\Navisworks Manage 2023\Plugins\SetAtributesToolkit');
 end;

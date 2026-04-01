@@ -1,5 +1,13 @@
+# Build intermediários
 obj/
-.vs/
-null
+Output/
 Build/build_log.txt
+
+# Visual Studio
+.vs/
 *.user
+*.suo
+*.rsuser
+
+# Artefato indevido
+null

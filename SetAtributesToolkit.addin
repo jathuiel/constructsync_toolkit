@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Plugins>
+
+  <Plugin>
+    <Id>SetAtributesToolkit.WriteAttributes</Id>
+    <FileName>SetAtributesToolkit</FileName>
+    <ClassName>SetAtributesToolkit.WriteAttributesPlugin</ClassName>
+    <DisplayName>Gravar Atributos</DisplayName>
+    <ToolTip>Cria ou atualiza atributos personalizados nos elementos selecionados</ToolTip>
+  </Plugin>
+
+  <Plugin>
+    <Id>SetAtributesToolkit.SelectionInspector</Id>
+    <FileName>SetAtributesToolkit</FileName>
+    <ClassName>SetAtributesToolkit.SelectionInspectorPlugin</ClassName>
+    <DisplayName>Selection Inspector</DisplayName>
+    <ToolTip>Inspeciona categorias e propriedades dos elementos selecionados</ToolTip>
+  </Plugin>
+
+</Plugins>

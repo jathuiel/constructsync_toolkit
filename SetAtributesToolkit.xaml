@@ -1,0 +1,24 @@
+<PluginRibbon xmlns="http://schemas.autodesk.com/navisworks/2009/xaml/commands"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             TabName="Set Atributes Toolkit">
+
+  <RibbonTab>
+    <RibbonPanel PanelName="Atributos">
+      <Button DisplayName="Gravar Atributos"
+              Id="SetAtributesToolkit.WriteAttributes"
+              ToolTip="Cria ou atualiza atributos personalizados nos elementos selecionados"
+              IsLarge="True"
+              Icon="Resources/atributos_icon.png"
+              LargeIcon="Resources/atributos_icon.png" />
+    </RibbonPanel>
+    <RibbonPanel PanelName="Inspeção">
+      <Button DisplayName="Selection Inspector"
+              Id="SetAtributesToolkit.SelectionInspector"
+              ToolTip="Inspeciona categorias e propriedades dos elementos selecionados"
+              IsLarge="True"
+              Icon="Resources/ler_atributo_icon.png"
+              LargeIcon="Resources/ler_atributo_icon.png" />
+    </RibbonPanel>
+  </RibbonTab>
+
+</PluginRibbon>

@@ -3,19 +3,18 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net48</TargetFramework>
-    <AssemblyName>TestePlugin</AssemblyName>
-    <RootNamespace>TestePlugin</RootNamespace>
+    <AssemblyName>SetAtributesToolkit</AssemblyName>
+    <RootNamespace>SetAtributesToolkit</RootNamespace>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
-    <OutputPath>$(AppData)\Autodesk\Navisworks Simulate 2026\Plugins\TestePlugin\</OutputPath>
+    <OutputPath>$(AppData)\Autodesk\Navisworks Simulate 2026\Plugins\SetAtributesToolkit\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- DLLs principais do Navisworks — Copy Local = false para não redistribuir -->
     <Reference Include="Autodesk.Navisworks.Api">
       <HintPath>C:\Arquivos de Programas\Autodesk\Navisworks Simulate 2026\Autodesk.Navisworks.Api.dll</HintPath>
       <Private>false</Private>
@@ -24,12 +23,10 @@
       <HintPath>C:\Arquivos de Programas\Autodesk\Navisworks Simulate 2026\AdWindows.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- ComApiBridge — classe bridge que converte ModelItem para objetos COM -->
     <Reference Include="Autodesk.Navisworks.ComApi">
       <HintPath>C:\Arquivos de Programas\Autodesk\Navisworks Simulate 2026\Autodesk.Navisworks.ComApi.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- Tipos COM (InwOpState3, InwOaPath3, InwOaProperty, etc.) -->
     <Reference Include="Autodesk.Navisworks.Interop.ComApi">
       <HintPath>C:\Arquivos de Programas\Autodesk\Navisworks Simulate 2026\Autodesk.Navisworks.Interop.ComApi.dll</HintPath>
       <Private>false</Private>
@@ -37,18 +34,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Ribbon XAML do Navisworks: embutido como recurso (não é WPF Page) -->
-    <Page Remove="Construct Sync Toolkit.xaml" />
-    <EmbeddedResource Include="Construct Sync Toolkit.xaml" />
-    <!-- Ícones de comandos (serão copiados para a pasta de saída para uso no ribbon) -->
-    <Content Include="Resources\*.ico">
+    <!-- Ribbon XAML: nome deve coincidir com AssemblyName -->
+    <Page Remove="SetAtributesToolkit.xaml" />
+    <Content Include="SetAtributesToolkit.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\*.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
-  <!-- Copia o .addin para a pasta de output após o build -->
   <Target Name="CopyAddin" AfterTargets="Build">
-    <Copy SourceFiles="Construct Sync Toolkit.addin"
+    <Copy SourceFiles="SetAtributesToolkit.addin"
           DestinationFolder="$(OutputPath)" />
   </Target>
 
