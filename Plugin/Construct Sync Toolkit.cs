@@ -21,4 +21,14 @@ namespace SetAtributesToolkit
             return 0;
         }
     }
+
+    [Plugin("SetAtributesToolkit.NativeAttrLab", "JCA", DisplayName = "Native Attr Lab")]
+    public class NativeAttrLabPlugin : AddInPlugin
+    {
+        public override int Execute(params string[] parameters)
+        {
+            PluginHelpers.OpenWindow<NativeAttrLabWindow>();
+            return 0;
+        }
+    }
 }
