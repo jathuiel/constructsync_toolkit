@@ -213,29 +213,41 @@ namespace SetAtributesToolkit
                         var nwPath = (InwOaPath3)ComApiBridge.ToInwOaPath(item);
                         var propNode = (InwGUIPropertyNode2)nwState.GetGUIPropertyNode(nwPath, false);
 
-                        // Localiza índice da categoria UserDefined alvo
-                        var guiAttribs = propNode.GUIAttributes();
+                        // Passo único: localiza índice E lê props existentes na mesma iteração
+                        // (evita dois calls a GUIAttributes(), que pode liberar objetos COM entre calls)
                         int udCount = 0;
                         int targetNdx = -1;
-                        foreach (object obj in guiAttribs)
+                        var existingProps = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+                        foreach (object obj in propNode.GUIAttributes())
                         {
                             var a = obj as InwGUIAttribute2;
                             if (a == null || !a.UserDefined) continue;
-                            udCount++;
-                            if (targetNdx < 0 &&
-                                string.Equals(a.name, categoryName, StringComparison.OrdinalIgnoreCase))
-                                targetNdx = udCount - 1;
-                        }
-                        if (targetNdx < 0) targetNdx = udCount;
 
-                        // Lê props UserDefined já existentes nessa categoria e faz merge
-                        // (propriedades da grade têm prioridade; as demais são preservadas)
-                        var existingProps = ReadExistingUserDefinedProps(propNode, categoryName);
+                            if (string.Equals(a.name, categoryName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                targetNdx = udCount;
+                                foreach (object pObj in a.Properties())
+                                {
+                                    var p = pObj as InwOaProperty;
+                                    if (p != null && !string.IsNullOrWhiteSpace(p.UserName))
+                                        existingProps[p.UserName] = p.value;
+                                }
+                            }
+                            udCount++;
+                        }
+                        if (targetNdx < 0) targetNdx = udCount; // categoria nova
+
+                        AppendLog($"    Props existentes lidas: {existingProps.Count} — novas/editadas na grade: {_labEntries.Count(x => !string.IsNullOrWhiteSpace(x.Name))}");
+
+                        // Merge: grade tem prioridade; props não listadas na grade são preservadas
                         foreach (var entry in _labEntries)
                         {
                             if (!string.IsNullOrWhiteSpace(entry.Name))
                                 existingProps[entry.Name] = ConvertLabValue(entry);
                         }
+
+                        AppendLog($"    Total de props após merge: {existingProps.Count}");
 
                         // Constrói o vetor com o resultado merged
                         var propVec = (InwOaPropertyVec)nwState.ObjectFactory(
@@ -353,37 +365,6 @@ namespace SetAtributesToolkit
             {
                 AppendLog($"  ✖ Erro na verificação: {ex.Message}");
             }
-        }
-
-        // ── HELPERS DE LEITURA ───────────────────────────────────────────────────
-
-        /// <summary>
-        /// Lê as propriedades já gravadas como UserDefined para a categoria informada.
-        /// Retorna dicionário vazio se a categoria ainda não existir.
-        /// </summary>
-        private static Dictionary<string, object> ReadExistingUserDefinedProps(
-            InwGUIPropertyNode2 propNode, string categoryName)
-        {
-            var result = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            try
-            {
-                foreach (object obj in propNode.GUIAttributes())
-                {
-                    var a = obj as InwGUIAttribute2;
-                    if (a == null || !a.UserDefined) continue;
-                    if (!string.Equals(a.name, categoryName, StringComparison.OrdinalIgnoreCase)) continue;
-
-                    foreach (object pObj in a.Properties())
-                    {
-                        var p = pObj as InwOaProperty;
-                        if (p != null)
-                            result[p.UserName] = p.value;
-                    }
-                    break;
-                }
-            }
-            catch { }
-            return result;
         }
 
         // ── LOG ──────────────────────────────────────────────────────────────────
