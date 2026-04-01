@@ -11,3 +11,6 @@ Build/build_log.txt
 
 # Artefato indevido
 null
+
+# Claude Code
+.claude/settings.local.json
