@@ -7,7 +7,7 @@ namespace SetAtributesToolkit
     {
         public override int Execute(params string[] parameters)
         {
-            PluginHelpers.OpenWindow<WriteAttributesWindow>();
+            PluginHelpers.OpenWindow<NativeAttrLabWindow>();
             return 0;
         }
     }

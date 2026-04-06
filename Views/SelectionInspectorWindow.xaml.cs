@@ -207,7 +207,7 @@ namespace SetAtributesToolkit
                     foreach (DataProperty prop in category.Properties)
                     {
                         if (!string.Equals(prop.DisplayName, col.Property, StringComparison.OrdinalIgnoreCase)) continue;
-                        row[col.Key] = SafeValue(prop.Value);
+                        row[col.Key] = PluginHelpers.SafeValue(prop.Value);
                         break;
                     }
                 }
@@ -215,13 +215,6 @@ namespace SetAtributesToolkit
             }
 
             return new BuildResult { Table = dt, Columns = columns };
-        }
-
-        private static string SafeValue(VariantData v)
-        {
-            if (v == null || v.DataType == VariantDataType.None) return string.Empty;
-            try { return v.ToDisplayString() ?? string.Empty; }
-            catch { return string.Empty; }
         }
 
         // ── BOTÕES DE SELEÇÃO ────────────────────────────────────────────────
@@ -287,13 +280,13 @@ namespace SetAtributesToolkit
             if (!(InspectorGrid.ItemsSource is DataView dv)) return sb;
 
             // Cabeçalho
-            var headers = _currentColumns.Select(c => EscapeCsv($"{c.Category} — {c.Property}"));
+            var headers = _currentColumns.Select(c => PluginHelpers.EscapeCsv($"{c.Category} — {c.Property}"));
             sb.AppendLine(string.Join(";", headers));
 
             // Linhas
             foreach (DataRowView rv in dv)
             {
-                var vals = _currentColumns.Select(c => EscapeCsv(rv.Row[c.Key]?.ToString() ?? ""));
+                var vals = _currentColumns.Select(c => PluginHelpers.EscapeCsv(rv.Row[c.Key]?.ToString() ?? ""));
                 sb.AppendLine(string.Join(";", vals));
             }
             return sb;
@@ -309,14 +302,6 @@ namespace SetAtributesToolkit
                 sb.AppendLine(string.Join("\t", _currentColumns.Select(c => rv.Row[c.Key]?.ToString() ?? "")));
 
             return sb;
-        }
-
-        private static string EscapeCsv(string s)
-        {
-            if (s == null) return "";
-            return (s.Contains(';') || s.Contains('"') || s.Contains('\n'))
-                ? $"\"{s.Replace("\"", "\"\"")}\""
-                : s;
         }
 
         // ── FECHAR ───────────────────────────────────────────────────────────
